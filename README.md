@@ -1,4 +1,4 @@
-# React Base Pro Max – Admin Panel + Flowbite + Vite
+# React Base – Admin Panel + Flowbite + Vite
 
 Project ini adalah **base template React** yang sudah dilengkapi:
 
