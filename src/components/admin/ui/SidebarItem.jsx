@@ -1,80 +1,93 @@
 /* eslint-disable no-unused-vars */
-import { X } from 'lucide-react';
-import SidebarItem from '../ui/SidebarItem';
+import { useState } from 'react';
+import { NavLink, useLocation } from 'react-router-dom';
+import { ChevronRight, ChevronDown } from 'lucide-react';
 
-const Sidebar = ({ 
-  sidebarOpen, 
-  setSidebarOpen, 
-  navigation, 
-  currentPath,
-  user 
-}) => {
+const SidebarItem = ({ item, onClick }) => {
+  const location = useLocation();
+  const [isOpen, setIsOpen] = useState(false);
+  
+  // Check if current path matches item or any subitem
+  const isActive = item.href === location.pathname || 
+    (item.submenu && item.items?.some(subItem => subItem.href === location.pathname));
+  
+  // Auto-open submenu if active
+  const shouldBeOpen = isActive || item.submenu && item.items?.some(subItem => 
+    location.pathname.startsWith(subItem.href)
+  );
+
+  if (item.submenu) {
+    return (
+      <div>
+        <button
+          onClick={() => setIsOpen(!isOpen)}
+          className={`
+            group flex items-center justify-between w-full px-3 py-2 text-sm font-medium rounded-lg transition-colors
+            ${isActive
+              ? 'bg-primary-50 dark:bg-gray-700 text-primary-600 dark:text-white'
+              : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700'
+            }
+          `}
+        >
+          <div className="flex items-center">
+            <item.icon className="w-5 h-5 text-gray-500 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white transition-colors mr-3" />
+            {item.name}
+          </div>
+          {isOpen ? (
+            <ChevronDown className="w-4 h-4 transition-transform" />
+          ) : (
+            <ChevronRight className="w-4 h-4 transition-transform" />
+          )}
+        </button>
+        
+        {isOpen && (
+          <div className="ml-4 mt-1 space-y-1">
+            {item.items.map((subItem) => {
+              const Icon = subItem.icon;
+              const isSubActive = location.pathname === subItem.href;
+              
+              return (
+                <NavLink
+                  key={subItem.name}
+                  to={subItem.href}
+                  onClick={onClick}
+                  className={`
+                    flex items-center px-3 py-2 text-sm font-medium rounded-lg transition-colors
+                    ${isSubActive
+                      ? 'bg-primary-50 dark:bg-gray-700 text-primary-600 dark:text-white'
+                      : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700'
+                    }
+                  `}
+                >
+                  <Icon className="w-4 h-4 mr-3" />
+                  {subItem.name}
+                </NavLink>
+              );
+            })}
+          </div>
+        )}
+      </div>
+    );
+  }
+
+  // Regular menu item
+  const Icon = item.icon;
   return (
-    <>
-      {/* Mobile sidebar backdrop */}
-      {sidebarOpen && (
-        <div
-          className="fixed inset-0 z-20 bg-gray-900 bg-opacity-50 lg:hidden"
-          onClick={() => setSidebarOpen(false)}
-        />
-      )}
-
-      {/* Sidebar */}
-      <aside
-        className={`fixed inset-y-0 left-0 z-30 w-64 transform bg-white dark:bg-gray-800 shadow-lg transition-transform duration-300 ease-in-out lg:translate-x-0 lg:static lg:inset-0 ${
-          sidebarOpen ? 'translate-x-0' : '-translate-x-full'
-        }`}
-      >
-        {/* Sidebar Header */}
-        <div className="flex h-16 items-center justify-between px-4 border-b border-gray-200 dark:border-gray-700">
-          <div className="flex items-center">
-            <div className="flex-shrink-0">
-              <div className="h-8 w-8 rounded-lg bg-primary-600 flex items-center justify-center">
-                <span className="text-white font-bold text-lg">A</span>
-              </div>
-            </div>
-            <div className="ml-3">
-              <h1 className="text-xl font-bold text-gray-900 dark:text-white">Admin Pro</h1>
-            </div>
-          </div>
-          <button
-            onClick={() => setSidebarOpen(false)}
-            className="lg:hidden text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300"
-          >
-            <X className="h-6 w-6" />
-          </button>
-        </div>
-
-        {/* Navigation */}
-        <nav className="mt-5 px-2 space-y-1 overflow-y-auto h-[calc(100vh-12rem)]">
-          {navigation.map((item) => (
-            <SidebarItem
-              key={item.name}
-              item={item}
-              onClick={() => setSidebarOpen(false)}
-            />
-          ))}
-        </nav>
-
-        {/* User Profile at Bottom */}
-        <div className="absolute bottom-0 w-full p-4 border-t border-gray-200 dark:border-gray-700">
-          <div className="flex items-center">
-            <div className="flex-shrink-0">
-              <img
-                className="h-10 w-10 rounded-full"
-                src={user.avatar}
-                alt={user.name}
-              />
-            </div>
-            <div className="ml-3">
-              <p className="text-sm font-medium text-gray-900 dark:text-white">{user.name}</p>
-              <p className="text-xs text-gray-500 dark:text-gray-400">{user.email}</p>
-            </div>
-          </div>
-        </div>
-      </aside>
-    </>
+    <NavLink
+      to={item.href}
+      onClick={onClick}
+      className={`
+        group flex items-center px-3 py-2 text-sm font-medium rounded-lg transition-colors
+        ${isActive
+          ? 'bg-primary-50 dark:bg-gray-700 text-primary-600 dark:text-white'
+          : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700'
+        }
+      `}
+    >
+      <Icon className="w-5 h-5 text-gray-500 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white transition-colors mr-3" />
+      {item.name}
+    </NavLink>
   );
 };
 
-export default Sidebar;
+export default SidebarItem;

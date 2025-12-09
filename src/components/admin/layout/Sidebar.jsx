@@ -4,8 +4,7 @@ import SidebarItem from '../ui/SidebarItem';
 const Sidebar = ({ 
   sidebarOpen, 
   setSidebarOpen, 
-  navigation, 
-  currentPath,
+  navigation,
   user 
 }) => {
   return (
@@ -45,18 +44,14 @@ const Sidebar = ({
         </div>
 
         {/* Navigation */}
-        <nav className="mt-5 px-2 space-y-1">
-          {navigation.map((item) => {
-            const isActive = currentPath === item.href;
-            return (
-              <SidebarItem
-                key={item.name}
-                item={item}
-                isActive={isActive}
-                onClick={() => setSidebarOpen(false)}
-              />
-            );
-          })}
+        <nav className="mt-5 px-2 space-y-1 overflow-y-auto h-[calc(100vh-12rem)] sidebar-scroll">
+          {navigation.map((item) => (
+            <SidebarItem
+              key={item.name}
+              item={item}
+              onClick={() => setSidebarOpen(false)}
+            />
+          ))}
         </nav>
 
         {/* User Profile at Bottom */}
