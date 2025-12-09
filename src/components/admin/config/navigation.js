@@ -1,0 +1,155 @@
+/* eslint-disable no-undef */
+import {
+  LayoutDashboard,
+  Users,
+  UserPlus,
+//   UserCheck,
+  ShoppingBag,
+  Package,
+  Box,
+  Tag,
+  CreditCard,
+  DollarSign,
+  Receipt,
+  BarChart3,
+  TrendingUp,
+  PieChart,
+  Settings,
+  Database,
+  Bell,
+  HelpCircle,
+  FileText,
+//   ChevronRight,
+//   ChevronDown,
+//   Home,
+  ShoppingCart,
+  Package2,
+  CreditCard as CreditCardIcon,
+  BarChart,
+  Cog,
+  LifeBuoy,
+  Users as UsersIcon,
+  Layers,
+//   Wallet,
+  LineChart,
+  Shield,
+  Mail,
+} from 'lucide-react';
+
+export const navigation = [
+  {
+    name: 'Dashboard',
+    href: '/admin',
+    icon: LayoutDashboard,
+    exact: true,
+  },
+  {
+    name: 'User Management',
+    icon: Users,
+    submenu: true,
+    items: [
+      { name: 'All Users', href: '/admin/users', icon: UsersIcon },
+      { name: 'Add New User', href: '/admin/users/new', icon: UserPlus },
+      { name: 'Roles & Permissions', href: '/admin/users/roles', icon: Shield },
+      { name: 'User Groups', href: '/admin/users/groups', icon: Users },
+    ],
+  },
+  {
+    name: 'Products',
+    icon: Package,
+    submenu: true,
+    items: [
+      { name: 'All Products', href: '/admin/products', icon: Package2 },
+      { name: 'Add Product', href: '/admin/products/new', icon: Box },
+      { name: 'Categories', href: '/admin/products/categories', icon: Layers },
+      { name: 'Inventory', href: '/admin/products/inventory', icon: Database },
+      { name: 'Reviews', href: '/admin/products/reviews', icon: Star },
+    ],
+  },
+  {
+    name: 'Orders',
+    icon: ShoppingBag,
+    submenu: true,
+    items: [
+      { name: 'All Orders', href: '/admin/orders', icon: ShoppingCart },
+      { name: 'Pending Orders', href: '/admin/orders/pending', icon: Clock },
+      { name: 'Completed Orders', href: '/admin/orders/completed', icon: CheckCircle },
+      { name: 'Returns', href: '/admin/orders/returns', icon: RefreshCw },
+      { name: 'Order Tracking', href: '/admin/orders/tracking', icon: MapPin },
+    ],
+  },
+  {
+    name: 'Financial',
+    icon: CreditCard,
+    submenu: true,
+    items: [
+      { name: 'Transactions', href: '/admin/financial/transactions', icon: CreditCardIcon },
+      { name: 'Invoices', href: '/admin/financial/invoices', icon: FileText },
+      { name: 'Revenue', href: '/admin/financial/revenue', icon: DollarSign },
+      { name: 'Expenses', href: '/admin/financial/expenses', icon: Receipt },
+      { name: 'Taxes', href: '/admin/financial/taxes', icon: Percent },
+    ],
+  },
+  {
+    name: 'Analytics',
+    icon: BarChart3,
+    submenu: true,
+    items: [
+      { name: 'Overview', href: '/admin/analytics', icon: BarChart },
+      { name: 'Sales Analytics', href: '/admin/analytics/sales', icon: TrendingUp },
+      { name: 'User Analytics', href: '/admin/analytics/users', icon: Users },
+      { name: 'Product Analytics', href: '/admin/analytics/products', icon: PieChart },
+      { name: 'Traffic Sources', href: '/admin/analytics/traffic', icon: LineChart },
+    ],
+  },
+  {
+    name: 'Marketing',
+    icon: Megaphone,
+    submenu: true,
+    items: [
+      { name: 'Campaigns', href: '/admin/marketing/campaigns', icon: Target },
+      { name: 'Email Marketing', href: '/admin/marketing/email', icon: Mail },
+      { name: 'Discounts', href: '/admin/marketing/discounts', icon: Tag },
+      { name: 'Promotions', href: '/admin/marketing/promotions', icon: Gift },
+    ],
+  },
+  {
+    name: 'Settings',
+    icon: Settings,
+    submenu: true,
+    items: [
+      { name: 'General', href: '/admin/settings/general', icon: Cog },
+      { name: 'Website', href: '/admin/settings/website', icon: Globe },
+      { name: 'Notifications', href: '/admin/settings/notifications', icon: Bell },
+      { name: 'Security', href: '/admin/settings/security', icon: Shield },
+      { name: 'API Keys', href: '/admin/settings/api', icon: Key },
+      { name: 'Backup', href: '/admin/settings/backup', icon: Database },
+    ],
+  },
+  {
+    name: 'Support',
+    icon: HelpCircle,
+    submenu: true,
+    items: [
+      { name: 'Help Center', href: '/admin/support/help', icon: HelpCircle },
+      { name: 'Documentation', href: '/admin/support/docs', icon: FileText },
+      { name: 'Contact Support', href: '/admin/support/contact', icon: LifeBuoy },
+      { name: 'Feedback', href: '/admin/support/feedback', icon: MessageSquare },
+    ],
+  },
+];
+
+export const user = {
+  name: 'Admin User',
+  email: 'admin@example.com',
+  role: 'Administrator',
+  avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80'
+};
+
+export const userNavigation = [
+  { name: 'Your Profile', href: '/admin/profile', icon: User },
+  { name: 'Account Settings', href: '/admin/settings/account', icon: Settings },
+  { name: 'Notifications', href: '/admin/notifications', icon: Bell },
+  { name: 'Billing', href: '/admin/billing', icon: CreditCard },
+  { name: 'Sign out', href: '#', icon: LogOut },
+];
